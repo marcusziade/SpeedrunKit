@@ -11,16 +11,12 @@ A comprehensive Swift SDK for the [speedrun.com](https://www.speedrun.com) API, 
 
 ## Features
 
-- 🚀 **Complete API Coverage** - Access to all speedrun.com API endpoints
+- 🚀 **Complete API Coverage** - All speedrun.com API endpoints
 - 🔒 **Type-Safe** - Leverages Swift's strong type system
 - ⚡ **Modern Swift** - Built with async/await and Swift 6.1+
-- 🌍 **Cross-Platform** - Works on macOS, iOS, tvOS, watchOS, and Linux
-- 🏗️ **Protocol-Oriented** - Flexible and testable architecture
-- ⚠️ **Comprehensive Error Handling** - Detailed error types for all failure cases
+- 🌍 **Cross-Platform** - macOS, iOS, tvOS, watchOS, and Linux
 - 📦 **Zero Dependencies** - Uses only native Swift libraries
 - 📖 **Fully Documented** - Complete DocC documentation
-- 🧪 **Well Tested** - Comprehensive test suite
-- 🐳 **Docker Support** - Ready-to-use Docker images
 
 ## Installation
 
@@ -103,139 +99,50 @@ let notifications = try await client.profile.getNotifications(
 )
 ```
 
-## Error Handling
+## Documentation & Resources
 
-SpeedrunKit provides comprehensive error handling:
+- 📚 **[Full API Documentation](https://marcusziade.github.io/SpeedrunKit/documentation/speedrunkit)** - Comprehensive API reference
+- 📖 **[Command Manual](manual.md)** - Complete guide to all CLI features and commands
+- 🔧 **[Examples & Tutorials](https://marcusziade.github.io/SpeedrunKit/)** - Learn how to use SpeedrunKit
+- 🐛 **[Report Issues](https://github.com/marcusziade/SpeedrunKit/issues)** - Found a bug? Let us know!
+
+
+## Quick Examples
+
+### Error Handling
 
 ```swift
 do {
     let games = try await client.games.list(query: nil, embeds: nil)
 } catch let error as SpeedrunError {
-    switch error {
-    case .networkError(let underlyingError):
-        print("Network error: \(underlyingError)")
-    case .httpError(let statusCode, let message):
-        print("HTTP \(statusCode): \(message ?? "Unknown error")")
-    case .rateLimitExceeded:
-        print("Rate limit exceeded, try again later")
-    case .authenticationRequired:
-        print("This endpoint requires authentication")
-    default:
-        print("Error: \(error.localizedDescription)")
-    }
+    print("Error: \(error.localizedDescription)")
 }
 ```
 
-## Pagination
-
-Handle paginated responses easily:
+### Pagination
 
 ```swift
-var allGames: [Game] = []
-var offset = 0
-let pageSize = 200
-
-repeat {
-    let page = try await client.games.list(
-        query: GameQuery(max: pageSize, offset: offset),
-        embeds: nil
-    )
-    
-    allGames.append(contentsOf: page.data)
-    
-    if page.data.count < pageSize {
-        break
-    }
-    
-    offset += pageSize
-} while true
+// Fetch multiple pages
+let page1 = try await client.games.list(query: GameQuery(max: 20, offset: 0), embeds: nil)
+let page2 = try await client.games.list(query: GameQuery(max: 20, offset: 20), embeds: nil)
 ```
 
-## CLI Tool
+For more detailed examples, see the [Command Manual](manual.md).
 
-SpeedrunKit includes a CLI tool for testing the API:
 
-```bash
-# Build the CLI
-swift build --product speedrun-cli -c release
-
-# Run the CLI
-.build/release/speedrun-cli
-```
-
-## Docker
-
-### Using Docker
-
-```bash
-# Build the image
-docker build -t speedrunkit .
-
-# Run the CLI
-docker run --rm speedrunkit
-
-# Development with docker-compose
-docker-compose run dev       # Build the project
-docker-compose run test      # Run tests
-docker-compose run cli       # Run CLI tool
-docker-compose run docs      # Generate documentation
-```
-
-### Using Pre-built Images
-
-```bash
-docker pull marcusziade/speedrunkit:latest
-docker run --rm marcusziade/speedrunkit:latest
-```
-
-## API Coverage
-
-SpeedrunKit provides complete coverage of the speedrun.com API:
-
-### Resources
-- ✅ Games
-- ✅ Categories
-- ✅ Levels
-- ✅ Variables
-- ✅ Runs
-- ✅ Users & Guests
-- ✅ Leaderboards
-- ✅ Series
-- ✅ Platforms
-- ✅ Regions
-- ✅ Genres
-- ✅ Engines
-- ✅ Developers
-- ✅ Publishers
-- ✅ Game Types
-
-### Features
-- ✅ Pagination
-- ✅ Embeds
-- ✅ Filtering
-- ✅ Sorting
-- ✅ Authentication
-- ✅ Rate Limit Handling
-- ✅ Comprehensive Error Types
 
 ## Requirements
 
 - Swift 6.1+
 - macOS 12.0+ / iOS 15.0+ / tvOS 15.0+ / watchOS 8.0+ / Linux
 
-## Documentation
+## CLI & Docker
 
-Visit our [website](https://marcusziade.github.io/SpeedrunKit/) for an overview, or jump directly to the [API documentation](https://marcusziade.github.io/SpeedrunKit/documentation/speedrunkit)
-
-To generate documentation locally:
-
-```bash
-swift package --allow-writing-to-directory ./docs \
-    generate-documentation --target SpeedrunKit \
-    --output-path ./docs \
-    --transform-for-static-hosting \
-    --hosting-base-path SpeedrunKit
-```
+SpeedrunKit includes a comprehensive CLI tool and Docker support. See the [Command Manual](manual.md) for:
+- Building and running the CLI
+- Docker and docker-compose usage
+- Installation instructions
+- All available commands
 
 ## Contributing
 
@@ -246,20 +153,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 3. Commit your changes (`git commit -m 'Add some amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
-
-## Testing
-
-Run the test suite:
-
-```bash
-swift test
-```
-
-Run specific tests:
-
-```bash
-swift test --filter SpeedrunKitTests.NamesTests
-```
 
 ## License
 
@@ -278,6 +171,6 @@ Marcus Ziadé - [@marcusziade](https://github.com/marcusziade)
 
 - [Project Website](https://marcusziade.github.io/SpeedrunKit/)
 - [API Documentation](https://marcusziade.github.io/SpeedrunKit/documentation/speedrunkit)
+- [Command Manual](manual.md) - All CLI features and commands
 - [speedrun.com API Reference](https://github.com/speedruncomorg/api)
 - [Report Issues](https://github.com/marcusziade/SpeedrunKit/issues)
-- [Releases](https://github.com/marcusziade/SpeedrunKit/releases)
