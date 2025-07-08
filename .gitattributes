@@ -1,0 +1,6 @@
+# Exclude from GitHub language statistics
+*.sh linguist-vendored
+Makefile linguist-vendored
+*.mk linguist-vendored
+Dockerfile linguist-vendored
+docker-compose.yml linguist-vendored
