@@ -1,0 +1,12 @@
+# Xcode
+.build/
+.swiftpm/
+*.xcodeproj
+Package.resolved
+
+# macOS
+.DS_Store
+
+# Documentation
+docs/
+.docc-build/
