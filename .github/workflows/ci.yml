@@ -1,0 +1,156 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+env:
+  SWIFT_VERSION: '6.1'
+
+jobs:
+  # macOS build and test
+  macos:
+    name: macOS (Swift ${{ matrix.swift }})
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        swift: ['6.1']
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_15.4.app
+      
+      - name: Swift version
+        run: swift --version
+      
+      - name: Build
+        run: swift build -v
+      
+      - name: Run tests
+        run: swift test -v
+        
+      - name: Build CLI
+        run: swift build --product speedrun-cli -c release
+        
+      - name: Upload CLI artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: speedrun-cli-macos
+          path: .build/release/speedrun-cli
+
+  # Linux build and test (native)
+  linux:
+    name: Linux (Swift ${{ matrix.swift }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        swift: ['6.1']
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install Swift
+        uses: swift-actions/setup-swift@v2
+        with:
+          swift-version: ${{ matrix.swift }}
+      
+      - name: Swift version
+        run: swift --version
+        
+      - name: Build
+        run: swift build -v
+        
+      - name: Run tests
+        run: swift test -v
+        
+      - name: Build CLI
+        run: swift build --product speedrun-cli -c release
+        
+      - name: Upload CLI artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: speedrun-cli-linux
+          path: .build/release/speedrun-cli
+
+  # Docker build and test
+  docker:
+    name: Docker Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: false
+          tags: speedrunkit:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          
+      - name: Test Docker build
+        run: |
+          docker build -t speedrunkit:test .
+          docker run --rm speedrunkit:test || true
+
+  # Documentation generation
+  docs:
+    name: Generate Documentation
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_15.4.app
+        
+      - name: Generate documentation
+        run: |
+          swift package --allow-writing-to-directory ./docs \
+            generate-documentation --target SpeedrunKit \
+            --output-path ./docs \
+            --transform-for-static-hosting \
+            --hosting-base-path SpeedrunKit
+          
+          # Verify documentation was generated
+          if [ ! -d "./docs" ]; then
+            echo "Error: Documentation directory not created"
+            exit 1
+          fi
+            
+      - name: Upload documentation
+        uses: actions/upload-artifact@v4
+        with:
+          name: documentation
+          path: docs
+
+  # Code quality checks
+  quality:
+    name: Code Quality
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install Swift
+        uses: swift-actions/setup-swift@v2
+        with:
+          swift-version: ${{ env.SWIFT_VERSION }}
+          
+      - name: Swift format check
+        run: |
+          git clone https://github.com/swiftlang/swift-format
+          cd swift-format
+          swift build -c release
+          cd ..
+          ./swift-format/.build/release/swift-format lint --recursive Sources Tests || true
+          
+      - name: Check for TODOs
+        run: |
+          if grep -r "TODO\|FIXME" Sources Tests; then
+            echo "::warning::Found TODO/FIXME comments in code"
+          fi
