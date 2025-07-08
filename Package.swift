@@ -36,7 +36,10 @@ let package = Package(
         // CLI tool target
         .executableTarget(
             name: "SpeedrunCLI",
-            dependencies: ["SpeedrunKit"]),
+            dependencies: ["SpeedrunKit"],
+            swiftSettings: [
+                .unsafeFlags(["-parse-as-library"])
+            ]),
         // Test target
         .testTarget(
             name: "SpeedrunKitTests",
