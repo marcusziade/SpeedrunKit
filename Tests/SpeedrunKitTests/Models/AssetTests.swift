@@ -9,6 +9,22 @@ final class AssetTests: XCTestCase {
         XCTAssertEqual(asset.height, 256)
     }
     
+    func testInitializationWithoutDimensions() {
+        let asset = Asset(uri: "https://example.com/image.jpg")
+        XCTAssertEqual(asset.uri, "https://example.com/image.jpg")
+        XCTAssertNil(asset.width)
+        XCTAssertNil(asset.height)
+        XCTAssertTrue(asset.isValid)
+    }
+    
+    func testInitializationWithNullUri() {
+        let asset = Asset(uri: nil)
+        XCTAssertNil(asset.uri)
+        XCTAssertNil(asset.width)
+        XCTAssertNil(asset.height)
+        XCTAssertFalse(asset.isValid)
+    }
+    
     func testDecoding() throws {
         let json = """
         {
@@ -24,6 +40,37 @@ final class AssetTests: XCTestCase {
         XCTAssertEqual(asset.uri, "https://www.speedrun.com/themes/sm64/cover-256.png")
         XCTAssertEqual(asset.width, 256)
         XCTAssertEqual(asset.height, 361)
+    }
+    
+    func testDecodingWithoutDimensions() throws {
+        let json = """
+        {
+            "uri": "https://www.speedrun.com/images/logo.png"
+        }
+        """
+        
+        let data = json.data(using: .utf8)!
+        let asset = try JSONDecoder().decode(Asset.self, from: data)
+        
+        XCTAssertEqual(asset.uri, "https://www.speedrun.com/images/logo.png")
+        XCTAssertNil(asset.width)
+        XCTAssertNil(asset.height)
+    }
+    
+    func testDecodingWithNullUri() throws {
+        let json = """
+        {
+            "uri": null
+        }
+        """
+        
+        let data = json.data(using: .utf8)!
+        let asset = try JSONDecoder().decode(Asset.self, from: data)
+        
+        XCTAssertNil(asset.uri)
+        XCTAssertNil(asset.width)
+        XCTAssertNil(asset.height)
+        XCTAssertFalse(asset.isValid)
     }
     
     func testEncoding() throws {
