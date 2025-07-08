@@ -1,0 +1,71 @@
+name: Deploy Documentation
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    
+    - id: pages
+      name: Setup Pages
+      uses: actions/configure-pages@v4
+    
+    - name: Install Swift
+      uses: swift-actions/setup-swift@v2
+      with:
+        swift-version: '6.1'
+      
+    - name: Build DocC
+      run: |
+        # Build documentation
+        swift package resolve
+        
+        # Generate documentation archive
+        swift package --allow-writing-to-directory ./docs \
+          generate-documentation --target SpeedrunKit \
+          --output-path ./docs-temp \
+          --transform-for-static-hosting \
+          --hosting-base-path 'SpeedrunKit'
+        
+        # Create deployment directory
+        mkdir -p deployment
+        
+        # Copy DocC generated content first
+        cp -r docs-temp/* deployment/
+        
+        # Then copy landing page files, which will overwrite DocC's index.html
+        # This ensures our custom landing page is used instead of DocC's default
+        if [ -d "landing-page" ]; then
+          cp -r landing-page/* deployment/
+        fi
+        
+        # Clean up
+        rm -rf docs-temp
+        
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: 'deployment'
+        
+    - id: deployment
+      name: Deploy to GitHub Pages
+      uses: actions/deploy-pages@v4
