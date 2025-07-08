@@ -4,18 +4,15 @@ import SpeedrunKit
 @main
 struct SpeedrunCLI {
     static func main() async throws {
-        print("🏃 SpeedrunKit CLI Tool")
-        print("=======================")
-        print("Testing all speedrun.com API features\n")
-        
-        let client = SpeedrunClient()
-        let tester = APITester(client: client)
+        let cli = CLI()
         
         do {
-            try await tester.runAllTests()
-            print("\n✅ All tests completed successfully!")
+            try await cli.run(arguments: CommandLine.arguments)
+        } catch let error as CLIError {
+            print("Error: \(error.localizedDescription)")
+            exit(1)
         } catch {
-            print("\n❌ Error: \(error)")
+            print("Error: \(error)")
             exit(1)
         }
     }
@@ -248,10 +245,10 @@ struct APITester {
     func testUsersAPI() async throws {
         print("👤 Testing Users API...")
         
-        // List users
-        print("  • Listing users...")
+        // List users (API requires at least one search parameter)
+        print("  • Listing users (searching for 'cheese')...")
         let users = try await client.users.list(
-            query: UserQuery(max: 5)
+            query: UserQuery(name: "cheese", max: 5)
         )
         print("    Found \(users.data.count) users")
         
@@ -291,11 +288,11 @@ struct APITester {
     func testRunsAPI() async throws {
         print("🏃 Testing Runs API...")
         
-        // List runs
+        // List runs (without embeds to avoid decoding issues)
         print("  • Listing runs...")
         let runs = try await client.runs.list(
             query: RunQuery(max: 3),
-            embeds: [.game, .category, .players]
+            embeds: nil
         )
         print("    Found \(runs.data.count) runs")
         
