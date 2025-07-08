@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpeedrunKit - Swift SDK for speedrun.com API</title>
+    <meta name="description" content="A comprehensive Swift SDK for the speedrun.com API with full async/await support, cross-platform compatibility, and powerful CLI tools.">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="logo">🏃</span>
+                <span class="brand-text">SpeedrunKit</span>
+            </div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#cli">CLI</a>
+                <a href="#sdk">SDK</a>
+                <a href="#installation">Installation</a>
+                <a href="/SpeedrunKit/documentation/speedrunkit" class="docs-link">Documentation</a>
+                <a href="https://github.com/marcusziade/SpeedrunKit" class="github-link">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M10 0C4.477 0 0 4.477 0 10c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.341-3.369-1.341-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0110 4.836c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C17.138 18.163 20 14.418 20 10c0-5.523-4.477-10-10-10z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-background"></div>
+        <div class="container hero-content">
+            <h1 class="hero-title">Swift SDK for speedrun.com API</h1>
+            <p class="hero-subtitle">Complete API coverage • Cross-platform • Powerful CLI tools</p>
+            
+            <div class="hero-actions">
+                <div class="code-tabs">
+                    <div class="tab-buttons">
+                        <button class="tab-button active" data-tab="cli">CLI Quick Start</button>
+                        <button class="tab-button" data-tab="sdk">SDK Quick Start</button>
+                    </div>
+                    
+                    <div class="tab-content active" data-content="cli">
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <span class="terminal-button red"></span>
+                                <span class="terminal-button yellow"></span>
+                                <span class="terminal-button green"></span>
+                                <span class="terminal-title">Terminal</span>
+                            </div>
+                            <pre><code><span class="comment"># Search for games</span>
+<span class="prompt">$</span> speedrun-cli games search "Mario"
+
+<span class="comment"># Get leaderboard</span>
+<span class="prompt">$</span> speedrun-cli leaderboard sm64 120-star --top 10
+
+<span class="comment"># Get user's personal bests</span>
+<span class="prompt">$</span> speedrun-cli user pb username</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" data-content="sdk">
+                        <div class="code-block">
+                            <pre><code class="swift"><span class="keyword">import</span> SpeedrunKit
+
+<span class="comment">// Create a client</span>
+<span class="keyword">let</span> client = <span class="type">SpeedrunClient</span>()
+
+<span class="comment">// Search for games</span>
+<span class="keyword">let</span> games = <span class="keyword">try await</span> client.games.list(
+    query: <span class="type">GameQuery</span>(name: <span class="string">"Mario"</span>, max: <span class="number">10</span>),
+    embeds: [.categories, .levels]
+)
+
+<span class="comment">// Get leaderboard</span>
+<span class="keyword">let</span> leaderboard = <span class="keyword">try await</span> client.leaderboards.fullGame(
+    game: <span class="string">"sm64"</span>,
+    category: <span class="string">"120-star"</span>,
+    query: <span class="type">LeaderboardQuery</span>(top: <span class="number">10</span>),
+    embeds: [.players]
+)</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Modern Swift</h3>
+                    <p>Built with async/await, Codable, and protocol-oriented design</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <h3>Cross-Platform</h3>
+                    <p>Works on macOS, iOS, tvOS, watchOS, and Linux</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>High Performance</h3>
+                    <p>Optimized networking with automatic retries and rate limiting</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Type-Safe</h3>
+                    <p>Comprehensive type safety with detailed error handling</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3>Complete Coverage</h3>
+                    <p>100% API coverage including games, runs, users, and leaderboards</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛠️</div>
+                    <h3>CLI Tools</h3>
+                    <p>Powerful command-line interface for testing and automation</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cli" class="cli-section">
+        <div class="container">
+            <h2 class="section-title">Command Line Interface</h2>
+            <p class="section-subtitle">A comprehensive CLI tool for interacting with the speedrun.com API</p>
+            
+            <div class="cli-showcase">
+                <div class="command-selector">
+                    <button class="command-btn active" data-command="games">Games</button>
+                    <button class="command-btn" data-command="leaderboards">Leaderboards</button>
+                    <button class="command-btn" data-command="users">Users</button>
+                    <button class="command-btn" data-command="runs">Runs</button>
+                </div>
+                
+                <div class="command-outputs">
+                    <div class="command-output active" data-output="games">
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <span class="terminal-button red"></span>
+                                <span class="terminal-button yellow"></span>
+                                <span class="terminal-button green"></span>
+                                <span class="terminal-title">speedrun-cli games</span>
+                            </div>
+                            <pre><code><span class="comment"># List popular games</span>
+<span class="prompt">$</span> speedrun-cli games list --orderby popularity
+
+<span class="output">Found 20 games:
+1. Super Mario 64 (sm64)
+2. The Legend of Zelda: Ocarina of Time (oot)
+3. Minecraft: Java Edition (mc)
+...</span>
+
+<span class="comment"># Search for specific game</span>
+<span class="prompt">$</span> speedrun-cli games search "Portal" --max 5
+
+<span class="output">Searching for "Portal"...
+1. Portal (portal)
+2. Portal 2 (portal2)
+3. Portal: Still Alive (portalsa)
+...</span></code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="command-output" data-output="leaderboards">
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <span class="terminal-button red"></span>
+                                <span class="terminal-button yellow"></span>
+                                <span class="terminal-button green"></span>
+                                <span class="terminal-title">speedrun-cli leaderboards</span>
+                            </div>
+                            <pre><code><span class="comment"># Get game leaderboard</span>
+<span class="prompt">$</span> speedrun-cli leaderboard sm64 120-star --top 5
+
+<span class="output">Super Mario 64 - 120 Star Leaderboard
+=====================================
+1. cheese          1:37:50 (WR)
+2. Puncayshun     1:37:53
+3. Liam           1:38:07
+4. Simply         1:38:23
+5. Dowsky         1:38:28</span>
+
+<span class="comment"># Get category leaderboard with video links</span>
+<span class="prompt">$</span> speedrun-cli leaderboard oot any% --videos
+
+<span class="output">Displaying runs with video links...</span></code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="command-output" data-output="users">
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <span class="terminal-button red"></span>
+                                <span class="terminal-button yellow"></span>
+                                <span class="terminal-button green"></span>
+                                <span class="terminal-title">speedrun-cli users</span>
+                            </div>
+                            <pre><code><span class="comment"># Get user profile</span>
+<span class="prompt">$</span> speedrun-cli user profile cheese
+
+<span class="output">User: cheese
+Location: United States
+Twitch: cheese05
+Signup: 2014-12-28
+</span>
+
+<span class="comment"># Get user's personal bests</span>
+<span class="prompt">$</span> speedrun-cli user pb cheese --game sm64
+
+<span class="output">cheese's Personal Bests in Super Mario 64:
+- 120 Star: 1:37:50 (WR) 🥇
+- 70 Star: 46:28 (2nd) 🥈
+- 16 Star: 14:35 (5th)</span></code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="command-output" data-output="runs">
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <span class="terminal-button red"></span>
+                                <span class="terminal-button yellow"></span>
+                                <span class="terminal-button green"></span>
+                                <span class="terminal-title">speedrun-cli runs</span>
+                            </div>
+                            <pre><code><span class="comment"># Get recent verified runs</span>
+<span class="prompt">$</span> speedrun-cli runs recent --status verified
+
+<span class="output">Recent Verified Runs:
+1. Super Mario 64 - 16 Star by runner123 (15:42)
+2. Portal - Glitchless by speedster (18:23)
+3. Celeste - Any% by dashmaster (27:15)
+...</span>
+
+<span class="comment"># Get run details</span>
+<span class="prompt">$</span> speedrun-cli run details abc123xyz
+
+<span class="output">Run Details:
+Game: Super Mario 64
+Category: 70 Star
+Time: 47:23
+Status: Verified ✓</span></code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sdk" class="sdk-section">
+        <div class="container">
+            <h2 class="section-title">SDK Examples</h2>
+            <p class="section-subtitle">Comprehensive Swift API with async/await support</p>
+            
+            <div class="sdk-examples">
+                <div class="example-card">
+                    <h3>Authentication</h3>
+                    <div class="code-block">
+                        <pre><code class="swift"><span class="comment">// Configure with API key</span>
+<span class="keyword">let</span> config = <span class="type">SpeedrunConfiguration</span>(
+    apiKey: <span class="string">"your-api-key"</span>
+)
+<span class="keyword">let</span> client = <span class="type">SpeedrunClient</span>(configuration: config)
+
+<span class="comment">// Access authenticated endpoints</span>
+<span class="keyword">let</span> profile = <span class="keyword">try await</span> client.profile.getProfile()
+<span class="keyword">let</span> notifications = <span class="keyword">try await</span> client.profile.getNotifications()</code></pre>
+                    </div>
+                </div>
+                
+                <div class="example-card">
+                    <h3>Error Handling</h3>
+                    <div class="code-block">
+                        <pre><code class="swift"><span class="keyword">do</span> {
+    <span class="keyword">let</span> games = <span class="keyword">try await</span> client.games.list()
+} <span class="keyword">catch let</span> error <span class="keyword">as</span> <span class="type">SpeedrunError</span> {
+    <span class="keyword">switch</span> error {
+    <span class="keyword">case</span> .networkError(<span class="keyword">let</span> underlying):
+        <span class="function">print</span>(<span class="string">"Network error: </span>\<span class="interpolation">(underlying)</span><span class="string">"</span>)
+    <span class="keyword">case</span> .rateLimitExceeded:
+        <span class="function">print</span>(<span class="string">"Rate limit hit, retry later"</span>)
+    <span class="keyword">case</span> .httpError(<span class="keyword">let</span> code, <span class="keyword">let</span> message):
+        <span class="function">print</span>(<span class="string">"HTTP </span>\<span class="interpolation">(code)</span><span class="string">: </span>\<span class="interpolation">(message ?? "Unknown")</span><span class="string">"</span>)
+    <span class="keyword">default</span>:
+        <span class="function">print</span>(<span class="string">"Error: </span>\<span class="interpolation">(error)</span><span class="string">"</span>)
+    }
+}</code></pre>
+                    </div>
+                </div>
+                
+                <div class="example-card">
+                    <h3>Pagination</h3>
+                    <div class="code-block">
+                        <pre><code class="swift"><span class="comment">// Fetch all games with pagination</span>
+<span class="keyword">var</span> allGames: [<span class="type">Game</span>] = []
+<span class="keyword">var</span> offset = <span class="number">0</span>
+<span class="keyword">let</span> pageSize = <span class="number">200</span>
+
+<span class="keyword">repeat</span> {
+    <span class="keyword">let</span> page = <span class="keyword">try await</span> client.games.list(
+        query: <span class="type">GameQuery</span>(max: pageSize, offset: offset)
+    )
+    
+    allGames.<span class="function">append</span>(contentsOf: page.data)
+    
+    <span class="keyword">if</span> page.data.count < pageSize {
+        <span class="keyword">break</span>
+    }
+    
+    offset += pageSize
+} <span class="keyword">while true</span>
+
+<span class="function">print</span>(<span class="string">"Total games: </span>\<span class="interpolation">(allGames.count)</span><span class="string">"</span>)</code></pre>
+                    </div>
+                </div>
+                
+                <div class="example-card">
+                    <h3>Embedding Related Data</h3>
+                    <div class="code-block">
+                        <pre><code class="swift"><span class="comment">// Fetch game with embedded data</span>
+<span class="keyword">let</span> game = <span class="keyword">try await</span> client.games.get(
+    <span class="string">"sm64"</span>,
+    embeds: [.categories, .levels, .variables]
+)
+
+<span class="comment">// Access embedded data directly</span>
+<span class="keyword">for</span> category <span class="keyword">in</span> game.categories?.data ?? [] {
+    <span class="function">print</span>(<span class="string">"Category: </span>\<span class="interpolation">(category.name)</span><span class="string">"</span>)
+}
+
+<span class="comment">// Get leaderboard with player data</span>
+<span class="keyword">let</span> leaderboard = <span class="keyword">try await</span> client.leaderboards.fullGame(
+    game: <span class="string">"sm64"</span>,
+    category: <span class="string">"120-star"</span>,
+    embeds: [.players]
+)</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="installation" class="installation">
+        <div class="container">
+            <h2 class="section-title">Installation</h2>
+            
+            <div class="install-methods">
+                <div class="install-method">
+                    <h3>Swift Package Manager</h3>
+                    <div class="code-block">
+                        <button class="copy-btn" data-text='dependencies: [
+    .package(url: "https://github.com/marcusziade/SpeedrunKit.git", from: "1.0.0")
+]'>Copy</button>
+                        <pre><code class="swift">dependencies: [
+    .package(url: <span class="string">"https://github.com/marcusziade/SpeedrunKit.git"</span>, from: <span class="string">"1.0.0"</span>)
+]</code></pre>
+                    </div>
+                </div>
+                
+                <div class="install-method">
+                    <h3>CLI Installation</h3>
+                    <div class="terminal">
+                        <div class="terminal-header">
+                            <span class="terminal-button red"></span>
+                            <span class="terminal-button yellow"></span>
+                            <span class="terminal-button green"></span>
+                            <span class="terminal-title">Terminal</span>
+                        </div>
+                        <pre><code><span class="comment"># Clone and build</span>
+<span class="prompt">$</span> git clone https://github.com/marcusziade/SpeedrunKit.git
+<span class="prompt">$</span> cd SpeedrunKit
+<span class="prompt">$</span> swift build --product speedrun-cli -c release
+
+<span class="comment"># Install to /usr/local/bin</span>
+<span class="prompt">$</span> sudo cp .build/release/speedrun-cli /usr/local/bin/</code></pre>
+                    </div>
+                </div>
+                
+                <div class="install-method">
+                    <h3>Docker</h3>
+                    <div class="terminal">
+                        <div class="terminal-header">
+                            <span class="terminal-button red"></span>
+                            <span class="terminal-button yellow"></span>
+                            <span class="terminal-button green"></span>
+                            <span class="terminal-title">Terminal</span>
+                        </div>
+                        <pre><code><span class="comment"># Pull from Docker Hub</span>
+<span class="prompt">$</span> docker pull marcusziade/speedrunkit:latest
+
+<span class="comment"># Run CLI</span>
+<span class="prompt">$</span> docker run --rm marcusziade/speedrunkit</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>SpeedrunKit</h4>
+                    <p>A comprehensive Swift SDK for the speedrun.com API</p>
+                    <div class="badges">
+                        <img src="https://img.shields.io/badge/Swift-6.1-orange.svg" alt="Swift 6.1">
+                        <img src="https://img.shields.io/badge/platform-macOS%20%7C%20Linux%20%7C%20iOS%20%7C%20tvOS%20%7C%20watchOS-lightgrey.svg" alt="Platforms">
+                        <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="MIT License">
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="/SpeedrunKit/documentation/speedrunkit">API Documentation</a></li>
+                        <li><a href="https://github.com/marcusziade/SpeedrunKit">GitHub Repository</a></li>
+                        <li><a href="https://github.com/marcusziade/SpeedrunKit/issues">Issues & Support</a></li>
+                        <li><a href="https://github.com/marcusziade/SpeedrunKit/releases">Releases</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Community</h4>
+                    <ul>
+                        <li><a href="https://www.speedrun.com">speedrun.com</a></li>
+                        <li><a href="https://github.com/speedruncomorg/api">API Reference</a></li>
+                        <li><a href="https://swift.org">Swift.org</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Marcus Ziadé. Released under the MIT License.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

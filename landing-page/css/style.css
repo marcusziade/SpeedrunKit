@@ -1,0 +1,540 @@
+:root {
+    /* Brand colors - speedrun.com green and Swift orange fusion */
+    --speedrun-green: #00d448;
+    --speedrun-dark-green: #00a63a;
+    --swift-orange: #F05138;
+    --gradient-start: #00d448;
+    --gradient-mid: #20c760;
+    --gradient-end: #F05138;
+    
+    /* Light theme colors */
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --bg-tertiary: #e9ecef;
+    --border-color: #dee2e6;
+    --code-bg: #f3f4f6;
+    
+    /* Terminal colors for light theme */
+    --terminal-bg: #1e1e1e;
+    --terminal-fg: #cccccc;
+    --terminal-green: #00d448;
+    --terminal-yellow: #ffd700;
+    --terminal-blue: #5c7cfa;
+    --terminal-purple: #c678dd;
+    --terminal-aqua: #56b6c2;
+    --terminal-orange: #F05138;
+}
+
+/* Dark theme */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text-primary: #e4e4e7;
+        --text-secondary: #a1a1aa;
+        --bg-primary: #0a0a0a;
+        --bg-secondary: #18181b;
+        --bg-tertiary: #27272a;
+        --border-color: #3f3f46;
+        --code-bg: #1e1e1e;
+        
+        /* Terminal colors for dark theme */
+        --terminal-bg: #0a0a0a;
+        --terminal-fg: #e4e4e7;
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* Navigation */
+.navbar {
+    position: sticky;
+    top: 0;
+    background: var(--bg-primary);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+    z-index: 1000;
+    padding: 16px 0;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.logo {
+    font-size: 28px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.nav-links a:hover {
+    color: var(--speedrun-green);
+}
+
+.docs-link {
+    color: var(--speedrun-green) !important;
+    padding: 8px 16px;
+    border: 2px solid var(--speedrun-green);
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.docs-link:hover {
+    background: var(--speedrun-green);
+    color: white !important;
+}
+
+.github-link {
+    display: flex;
+    align-items: center;
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    padding: 120px 0 80px;
+    overflow: hidden;
+}
+
+.hero-background {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-mid) 50%, var(--gradient-end) 100%);
+    opacity: 0.1;
+    z-index: -1;
+}
+
+.hero-content {
+    text-align: center;
+}
+
+.hero-title {
+    font-size: 56px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, var(--speedrun-green) 0%, var(--swift-orange) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-subtitle {
+    font-size: 20px;
+    color: var(--text-secondary);
+    margin-bottom: 48px;
+}
+
+/* Code Tabs */
+.code-tabs {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.tab-buttons {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    justify-content: center;
+}
+
+.tab-button {
+    padding: 12px 24px;
+    background: var(--bg-secondary);
+    border: 2px solid transparent;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tab-button:hover {
+    border-color: var(--speedrun-green);
+}
+
+.tab-button.active {
+    background: var(--speedrun-green);
+    color: white;
+    border-color: var(--speedrun-green);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Terminal */
+.terminal {
+    background: var(--terminal-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.terminal-header {
+    background: #2d2d2d;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.terminal-button {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.terminal-button.red { background: #ff5f57; }
+.terminal-button.yellow { background: #ffbd2e; }
+.terminal-button.green { background: #28ca42; }
+
+.terminal-title {
+    margin-left: auto;
+    font-size: 13px;
+    color: #999;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.terminal pre {
+    padding: 24px;
+    margin: 0;
+    overflow-x: auto;
+}
+
+.terminal code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--terminal-fg);
+}
+
+.comment { color: #6a737d; }
+.prompt { color: var(--terminal-green); }
+.output { color: var(--terminal-fg); opacity: 0.8; }
+
+/* Code Block */
+.code-block {
+    background: var(--code-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+}
+
+.code-block pre {
+    padding: 24px;
+    margin: 0;
+    overflow-x: auto;
+}
+
+.code-block code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Swift syntax highlighting */
+.keyword { color: var(--terminal-purple); font-weight: 600; }
+.type { color: var(--terminal-blue); }
+.string { color: var(--terminal-green); }
+.number { color: var(--terminal-orange); }
+.function { color: var(--terminal-aqua); }
+.interpolation { color: var(--terminal-yellow); }
+
+/* Features Section */
+.features {
+    padding: 80px 0;
+    background: var(--bg-secondary);
+}
+
+.section-title {
+    font-size: 40px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.section-subtitle {
+    font-size: 18px;
+    color: var(--text-secondary);
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 32px;
+    margin-top: 48px;
+}
+
+.feature-card {
+    background: var(--bg-primary);
+    padding: 32px;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+}
+
+.feature-card h3 {
+    font-size: 24px;
+    margin-bottom: 12px;
+}
+
+.feature-card p {
+    color: var(--text-secondary);
+}
+
+/* CLI Section */
+.cli-section {
+    padding: 80px 0;
+}
+
+.cli-showcase {
+    margin-top: 48px;
+}
+
+.command-selector {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 32px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.command-btn {
+    padding: 12px 24px;
+    background: var(--bg-secondary);
+    border: 2px solid transparent;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.command-btn:hover {
+    border-color: var(--speedrun-green);
+}
+
+.command-btn.active {
+    background: var(--speedrun-green);
+    color: white;
+    border-color: var(--speedrun-green);
+}
+
+.command-output {
+    display: none;
+}
+
+.command-output.active {
+    display: block;
+}
+
+/* SDK Section */
+.sdk-section {
+    padding: 80px 0;
+    background: var(--bg-secondary);
+}
+
+.sdk-examples {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 32px;
+    margin-top: 48px;
+}
+
+.example-card {
+    background: var(--bg-primary);
+    padding: 32px;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+}
+
+.example-card h3 {
+    font-size: 20px;
+    margin-bottom: 16px;
+}
+
+/* Installation Section */
+.installation {
+    padding: 80px 0;
+}
+
+.install-methods {
+    display: grid;
+    gap: 32px;
+    margin-top: 48px;
+}
+
+.install-method {
+    background: var(--bg-secondary);
+    padding: 32px;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+}
+
+.install-method h3 {
+    font-size: 20px;
+    margin-bottom: 16px;
+}
+
+/* Copy Button */
+.copy-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 8px 16px;
+    background: var(--speedrun-green);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.copy-btn:hover {
+    background: var(--speedrun-dark-green);
+}
+
+.copy-btn.copied {
+    background: var(--swift-orange);
+}
+
+/* Footer */
+.footer {
+    background: var(--bg-secondary);
+    padding: 64px 0 32px;
+    border-top: 1px solid var(--border-color);
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 48px;
+}
+
+.footer-section h4 {
+    font-size: 18px;
+    margin-bottom: 16px;
+}
+
+.footer-section p {
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 8px;
+}
+
+.footer-section a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-section a:hover {
+    color: var(--speedrun-green);
+}
+
+.badges {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.badges img {
+    height: 20px;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 32px;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-secondary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 40px;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .sdk-examples {
+        grid-template-columns: 1fr;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .nav-links {
+        display: none;
+    }
+}

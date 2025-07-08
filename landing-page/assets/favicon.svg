@@ -1,0 +1,32 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="45" fill="#00d448"/>
+  
+  <!-- Running figure (simplified) -->
+  <g fill="white">
+    <!-- Head -->
+    <circle cx="45" cy="25" r="8"/>
+    
+    <!-- Body -->
+    <path d="M 45 33 
+             L 45 50
+             L 55 45
+             L 65 55
+             M 45 50
+             L 35 60
+             L 30 75
+             M 45 50
+             L 50 65
+             L 55 75"
+          stroke="white" 
+          stroke-width="6" 
+          stroke-linecap="round"
+          fill="none"/>
+  </g>
+  
+  <!-- Swift bird accent -->
+  <path d="M 65 20
+           Q 70 15, 75 20
+           Q 70 25, 65 20"
+        fill="#F05138"/>
+</svg>
