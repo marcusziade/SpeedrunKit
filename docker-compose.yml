@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  # Development service - mounts source code for live development
+  dev:
+    build:
+      context: .
+      target: builder
+    volumes:
+      - .:/app
+      - swift-build-cache:/app/.build
+    working_dir: /app
+    command: swift build
+
+  # Test service - runs tests
+  test:
+    build:
+      context: .
+      target: builder
+    volumes:
+      - .:/app
+      - swift-build-cache:/app/.build
+    working_dir: /app
+    command: swift test
+
+  # CLI service - runs the CLI tool
+  cli:
+    build:
+      context: .
+    environment:
+      - SPEEDRUN_API_KEY=${SPEEDRUN_API_KEY:-}
+    command: []
+
+  # Documentation service - generates DocC documentation
+  docs:
+    build:
+      context: .
+      target: builder
+    volumes:
+      - .:/app
+      - swift-build-cache:/app/.build
+      - ./docs:/app/docs
+    working_dir: /app
+    command: >
+      bash -c "
+        swift package --allow-writing-to-directory docs \
+        generate-documentation --target SpeedrunKit \
+        --output-path docs \
+        --transform-for-static-hosting \
+        --hosting-base-path SpeedrunKit
+      "
+    ports:
+      - "8000:8000"
+
+volumes:
+  swift-build-cache:

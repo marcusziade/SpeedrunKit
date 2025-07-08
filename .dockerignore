@@ -1,0 +1,44 @@
+# Git
+.git/
+.gitignore
+
+# Swift build artifacts
+.build/
+.swiftpm/
+build/
+DerivedData/
+
+# Documentation
+docs/
+*.docc-build/
+
+# IDE
+.vscode/
+.idea/
+*.xcodeproj/
+*.xcworkspace/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Testing
+*.xcresult/
+*.profraw
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# Package resolved files (will be regenerated)
+Package.resolved
