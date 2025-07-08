@@ -27,7 +27,7 @@ public struct Leaderboard: Codable, Sendable {
     public let videoOnly: Bool
     
     /// Primary timing method for sorting
-    public let timing: TimingMethod
+    public let timing: TimingMethod?
     
     /// Variable filters applied (variable ID -> value ID)
     public let values: [String: String]
