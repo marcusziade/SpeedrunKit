@@ -2,7 +2,7 @@ import Foundation
 
 /// Protocol for responses that support pagination
 public protocol PaginatedResponse {
-    associatedtype Item: Decodable
+    associatedtype Item: Codable
     
     /// The data items in the response
     var data: [Item] { get }
@@ -27,7 +27,7 @@ public struct Pagination: Codable, Sendable {
 }
 
 /// Generic wrapper for paginated API responses
-public struct PaginatedData<T: Decodable & Sendable>: Decodable, PaginatedResponse, Sendable {
+public struct PaginatedData<T: Codable & Sendable>: Codable, PaginatedResponse, Sendable {
     public let data: [T]
     public let pagination: Pagination?
     
