@@ -134,7 +134,7 @@ For more detailed examples, see the [Command Manual](manual.md).
 ## Requirements
 
 - Swift 5.9
-- macOS 12.0+ / iOS 15.0+ / tvOS 15.0+ / watchOS 8.0+ / Linux
+- macOS 12.0+ / iOS 15.0+ / tvOS 15.0+ / watchOS 8.0+ / Linux / Android
 
 ## CLI & Docker
 
