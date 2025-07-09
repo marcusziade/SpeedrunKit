@@ -1,6 +1,6 @@
 # SpeedrunKit
 
-[![Swift](https://img.shields.io/badge/Swift-6.1-orange.svg)](https://swift.org)
+[![Swift](https://img.shields.io/badge/Swift-5.9-orange.svg)](https://swift.org)
 [![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Linux%20%7C%20iOS%20%7C%20tvOS%20%7C%20watchOS-lightgrey.svg)](https://swift.org)
 [![CI](https://github.com/marcusziade/SpeedrunKit/actions/workflows/ci.yml/badge.svg)](https://github.com/marcusziade/SpeedrunKit/actions/workflows/ci.yml)
 [![Documentation](https://img.shields.io/badge/docs-DocC-blue)](https://marcusziade.github.io/SpeedrunKit/documentation/speedrunkit)
