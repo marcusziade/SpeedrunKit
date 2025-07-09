@@ -1,4 +1,4 @@
-// swift-tools-version: 6.1
+// swift-tools-version: 5.9
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -9,7 +9,7 @@ let package = Package(
         .macOS(.v12),
         .iOS(.v15),
         .tvOS(.v15),
-        .watchOS(.v8)
+        .watchOS(.v8),
     ],
     products: [
         // Main library
@@ -19,7 +19,7 @@ let package = Package(
         // CLI tool for testing
         .executable(
             name: "speedrun-cli",
-            targets: ["SpeedrunCLI"])
+            targets: ["SpeedrunCLI"]),
     ],
     dependencies: [
         // DocC plugin for documentation
