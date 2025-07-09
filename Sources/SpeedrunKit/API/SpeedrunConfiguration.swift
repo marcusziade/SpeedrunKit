@@ -1,4 +1,4 @@
-import Foundation
+@preconcurrency import Foundation
 
 /// Configuration for the Speedrun API client
 public struct SpeedrunConfiguration: Sendable {
