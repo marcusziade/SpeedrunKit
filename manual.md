@@ -133,7 +133,7 @@ Test Case 'AssetTests.testDecoding' passed (0.0 seconds)
 Test Suite 'All tests' passed at 2025-07-08 15:43:50.381
 	 Executed 40 tests, with 0 failures (0 unexpected) in 0.204 (0.204) seconds
 ◇ Test run started.
-↳ Testing Library Version: 6.1 (43b6f88e2f2712e)
+↳ Testing Library Version: 5.9 (swift-5.9-RELEASE)
 ↳ Target Platform: x86_64-unknown-linux-gnu
 ✔ Test run with 0 tests passed after 0.001 seconds.
 ```
@@ -320,7 +320,7 @@ speedrun-cli version
 ```
 speedrun-cli version 1.0.0
 SpeedrunKit SDK version 1.0.0
-Swift version 6.1
+Swift version 5.9
 ```
 
 </details>
@@ -1072,8 +1072,8 @@ docker build -t speedrunkit .
 [+] Building 45.2s (18/18) FINISHED
  => [internal] load build definition from Dockerfile
  => [internal] load .dockerignore
- => [internal] load metadata for docker.io/library/swift:6.1-jammy
- => [builder 1/9] FROM docker.io/library/swift:6.1-jammy
+ => [internal] load metadata for docker.io/library/swift:5.9-jammy
+ => [builder 1/9] FROM docker.io/library/swift:5.9-jammy
  => [internal] load build context
  => CACHED [builder 2/9] RUN apt-get update && apt-get install -y libcurl4-openssl-dev
  => [builder 3/9] WORKDIR /build
@@ -1234,7 +1234,7 @@ swift --version
 
 **Output:**
 ```
-Swift version 6.1 (swift-6.1-RELEASE)
+Swift version 5.9 (swift-5.9-RELEASE)
 Target: x86_64-unknown-linux-gnu
 ```
 
@@ -1249,7 +1249,7 @@ swift package tools-version
 
 **Output:**
 ```
-6.1
+5.9
 ```
 
 </details>

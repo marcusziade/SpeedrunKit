@@ -1,5 +1,5 @@
 # Build stage
-FROM swift:6.1-jammy AS builder
+FROM swift:5.9-jammy AS builder
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -26,7 +26,7 @@ RUN swift build -c release
 RUN swift test
 
 # Runtime stage
-FROM swift:6.1-jammy-slim
+FROM swift:5.9-jammy-slim
 
 # Install runtime dependencies
 RUN apt-get update && apt-get install -y \
