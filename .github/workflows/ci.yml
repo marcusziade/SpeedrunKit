@@ -44,18 +44,12 @@ jobs:
 
   # Linux build and test (native)
   linux:
-    name: Linux (Swift ${{ matrix.swift }})
+    name: Linux (Swift 5.9)
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        swift: ['5.9']
+    container:
+      image: swift:5.9
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Install Swift
-        uses: swift-actions/setup-swift@v2
-        with:
-          swift-version: ${{ matrix.swift }}
       
       - name: Swift version
         run: swift --version
