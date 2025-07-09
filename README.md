@@ -13,7 +13,7 @@ A comprehensive Swift SDK for the [speedrun.com](https://www.speedrun.com) API, 
 
 - 🚀 **Complete API Coverage** - All speedrun.com API endpoints
 - 🔒 **Type-Safe** - Leverages Swift's strong type system
-- ⚡ **Modern Swift** - Built with async/await and Swift 6.1+
+- ⚡ **Modern Swift** - Built with async/await and Swift 5.9
 - 🌍 **Cross-Platform** - macOS, iOS, tvOS, watchOS, and Linux
 - 📦 **Zero Dependencies** - Uses only native Swift libraries
 - 📖 **Fully Documented** - Complete DocC documentation
@@ -133,7 +133,7 @@ For more detailed examples, see the [Command Manual](manual.md).
 
 ## Requirements
 
-- Swift 6.1+
+- Swift 5.9
 - macOS 12.0+ / iOS 15.0+ / tvOS 15.0+ / watchOS 8.0+ / Linux
 
 ## CLI & Docker
