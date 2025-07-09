@@ -37,15 +37,18 @@ jobs:
         # Build documentation
         swift package resolve
         
+        # Clean up any existing directories
+        rm -rf docs-temp deployment
+        
+        # Create deployment directory
+        mkdir -p deployment
+        
         # Generate documentation archive
-        swift package --allow-writing-to-directory ./docs \
+        swift package --allow-writing-to-directory ./docs-temp \
           generate-documentation --target SpeedrunKit \
           --output-path ./docs-temp \
           --transform-for-static-hosting \
           --hosting-base-path 'SpeedrunKit'
-        
-        # Create deployment directory
-        mkdir -p deployment
         
         # Copy DocC generated content first
         cp -r docs-temp/* deployment/
