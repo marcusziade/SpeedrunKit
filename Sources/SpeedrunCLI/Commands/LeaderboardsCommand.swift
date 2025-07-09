@@ -302,7 +302,7 @@ extension Leaderboard {
         return nil
     }
     
-    var embeddedCategory: Category? {
+    var embeddedCategory: SpeedrunKit.Category? {
         return nil
     }
     
