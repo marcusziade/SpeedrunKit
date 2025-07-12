@@ -2,8 +2,8 @@
 
 [![Swift](https://img.shields.io/badge/Swift-5.9-orange.svg)](https://swift.org)
 [![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Linux%20%7C%20iOS%20%7C%20tvOS%20%7C%20watchOS-lightgrey.svg)](https://swift.org)
-[![CI](https://github.com/marcusziade/SpeedrunKit/actions/workflows/ci.yml/badge.svg)](https://github.com/marcusziade/SpeedrunKit/actions/workflows/ci.yml)
-[![Documentation](https://img.shields.io/badge/docs-DocC-blue)](https://marcusziade.github.io/SpeedrunKit/documentation/speedrunkit)
+[![CI](https://github.com/guitaripod/SpeedrunKit/actions/workflows/ci.yml/badge.svg)](https://github.com/guitaripod/SpeedrunKit/actions/workflows/ci.yml)
+[![Documentation](https://img.shields.io/badge/docs-DocC-blue)](https://guitaripod.github.io/SpeedrunKit/documentation/speedrunkit)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Swift Package Manager](https://img.shields.io/badge/SPM-compatible-brightgreen.svg)](https://swift.org/package-manager/)
 
@@ -26,7 +26,7 @@ Add SpeedrunKit to your `Package.swift` file:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/marcusziade/SpeedrunKit.git", from: "1.0.0")
+    .package(url: "https://github.com/guitaripod/SpeedrunKit.git", from: "1.0.0")
 ]
 ```
 
@@ -42,7 +42,7 @@ Then add it to your target dependencies:
 ### Xcode
 
 1. In Xcode, select **File > Add Package Dependencies...**
-2. Enter the repository URL: `https://github.com/marcusziade/SpeedrunKit.git`
+2. Enter the repository URL: `https://github.com/guitaripod/SpeedrunKit.git`
 3. Select the version you want to use
 
 ## Quick Start
@@ -101,10 +101,10 @@ let notifications = try await client.profile.getNotifications(
 
 ## Documentation & Resources
 
-- 📚 **[Full API Documentation](https://marcusziade.github.io/SpeedrunKit/documentation/speedrunkit)** - Comprehensive API reference
+- 📚 **[Full API Documentation](https://guitaripod.github.io/SpeedrunKit/documentation/speedrunkit)** - Comprehensive API reference
 - 📖 **[Command Manual](manual.md)** - Complete guide to all CLI features and commands
-- 🔧 **[Examples & Tutorials](https://marcusziade.github.io/SpeedrunKit/)** - Learn how to use SpeedrunKit
-- 🐛 **[Report Issues](https://github.com/marcusziade/SpeedrunKit/issues)** - Found a bug? Let us know!
+- 🔧 **[Examples & Tutorials](https://guitaripod.github.io/SpeedrunKit/)** - Learn how to use SpeedrunKit
+- 🐛 **[Report Issues](https://github.com/guitaripod/SpeedrunKit/issues)** - Found a bug? Let us know!
 
 
 ## Quick Examples
@@ -165,12 +165,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Author
 
-Marcus Ziadé - [@marcusziade](https://github.com/marcusziade)
+Marcus Ziadé - [@guitaripod](https://github.com/guitaripod)
 
 ## Links
 
-- [Project Website](https://marcusziade.github.io/SpeedrunKit/)
-- [API Documentation](https://marcusziade.github.io/SpeedrunKit/documentation/speedrunkit)
+- [Project Website](https://guitaripod.github.io/SpeedrunKit/)
+- [API Documentation](https://guitaripod.github.io/SpeedrunKit/documentation/speedrunkit)
 - [Command Manual](manual.md) - All CLI features and commands
 - [speedrun.com API Reference](https://github.com/speedruncomorg/api)
-- [Report Issues](https://github.com/marcusziade/SpeedrunKit/issues)
+- [Report Issues](https://github.com/guitaripod/SpeedrunKit/issues)

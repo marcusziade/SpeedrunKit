@@ -1198,7 +1198,7 @@ Removes all build products and dependencies.
 
 ```bash
 # Create repository on GitHub first, then:
-git remote add origin https://github.com/marcusziade/SpeedrunKit.git
+git remote add origin https://github.com/guitaripod/SpeedrunKit.git
 git branch -M main
 git push -u origin main
 ```

@@ -22,7 +22,7 @@ Add SpeedrunKit to your Swift package dependencies:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/marcusziade/SpeedrunKit.git", from: "1.0.0")
+    .package(url: "https://github.com/guitaripod/SpeedrunKit.git", from: "1.0.0")
 ]
 ```
 
